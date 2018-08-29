@@ -1,0 +1,29 @@
+###Talk about how to run Hybrid Astar algorithm for path planning and simulate in 2d view
+
+#Github: https://github.com/AtsushiSakai/HybridAStarTrailer
+#Paper: Practical Search Techniques in Path Planning for Autonomous Driving
+
+I. C++ for normal car
+## Steps
+1. Under folder /home/yosun/Desktop/Path_Planning_Algorithm/HybridAstar_car_cplusplus/HybridAstar_truck_cplusplus/src
+
+2. Open a command and run make
+$ make
+
+## Results
+$ cd simulation/
+$ python animation.py //ROS coordinate system
+$ python animation_carla.py //CARLA coordinate system
+It will run as a gif and save image to result folder
+
+II. C++ for trailer truck
+## Steps
+1. Under folder /home/yosun/Desktop/Path_Planning_Algorithm/HybridAstar_truck_trailer_cplusplus/src
+
+2. Open a command and run make
+$ make
+
+## Results
+$ cd simulation/
+$ python animation.py //ROS coordinate system
+
