@@ -5,25 +5,52 @@
 
 I. C++ for normal car
 ## Steps
-1. Under folder /home/yosun/Desktop/Path_Planning_Algorithm/HybridAstar_car_cplusplus/HybridAstar_truck_cplusplus/src
+1. Code under folder /home/yosun/Desktop/Path_Planning_Algorithm/HybridAstar_car_cplusplus/HybridAstar_truck_cplusplus/src
 
-2. Open a command and run make
+2. Code specifications
+Parameters are defined in def_all.hpp
+obstacle information (x, y) in the map is defined in obstacle.dat	
+
+3. Open a command and run make (path planning)
 $ make
 
 ## Results
+1. Show animation of parking progress
 $ cd simulation/
 $ python animation.py //ROS coordinate system
 $ python animation_carla.py //CARLA coordinate system
-It will run as a gif and save image to result folder
+
+Images for each step will be saved under /home/yosun/Desktop/Path_Planning_Algorithm/HybridAstar_car_cplusplus/HybridAstar_truck_cplusplus/src/simulation/resulter
 
 II. C++ for trailer truck
 ## Steps
-1. Under folder /home/yosun/Desktop/Path_Planning_Algorithm/HybridAstar_truck_trailer_cplusplus/src
+1. Code under folder /home/yosun/Desktop/Path_Planning_Algorithm/HybridAstar_truck_trailer_cplusplus/src
 
-2. Open a command and run make
+2. Code specifications
+Parameters are defined in def_all.hpp
+obstacle information (x, y) in the map is defined in obstacle.dat
+
+3. Open a command and run make
 $ make
 
 ## Results
+1. Show animation of parking progress
 $ cd simulation/
 $ python animation.py //ROS coordinate system
+
+Images for each step will be saved under /home/yosun/Desktop/Path_Planning_Algorithm/HybridAstar_car_cplusplus/HybridAstar_truck_cplusplus/src/simulation/result
+
+II. Julia for trailer truck
+## Steps
+1. Code under folder /home/yosun/Desktop/Path_Planning_Algorithm/HybridAStar_truck_trailer_julia
+
+2. open a terminal and run test_scenarios.jl directly to test nearly 25k scenarios
+$ julia test_scenarios.jl
+
+## Results
+1. Success rate and time for generating path for each scenario will shown in terminal 
+2. Result path for each scenarios will be saved under /home/yosun/Desktop/Path_Planning_Algorithm/HybridAStar_truck_trailer_julia/movie/scenarios_result
+
+The name format will be start configuration (x, y, yaw, yaw1)
+
 
