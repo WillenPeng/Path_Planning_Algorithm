@@ -4,6 +4,11 @@
 #Paper: Practical Search Techniques in Path Planning for Autonomous Driving
 
 I. C++ for normal car
+
+## Requirements
+1. C++
+2. Python (for simulation)
+
 ## Steps
 1. Code under folder /home/yosun/Desktop/Path_Planning_Algorithm/HybridAstar_car_cplusplus/HybridAstar_truck_cplusplus/src
 
@@ -23,6 +28,11 @@ $ python animation_carla.py //CARLA coordinate system
 Images for each step will be saved under /home/yosun/Desktop/Path_Planning_Algorithm/HybridAstar_car_cplusplus/HybridAstar_truck_cplusplus/src/simulation/resulter
 
 II. C++ for trailer truck
+
+## Requirements
+1. C++
+2. Python (for simulation)
+
 ## Steps
 1. Code under folder /home/yosun/Desktop/Path_Planning_Algorithm/HybridAstar_truck_trailer_cplusplus/src
 
@@ -41,6 +51,14 @@ $ python animation.py //ROS coordinate system
 Images for each step will be saved under /home/yosun/Desktop/Path_Planning_Algorithm/HybridAstar_car_cplusplus/HybridAstar_truck_cplusplus/src/simulation/result
 
 II. Julia for trailer truck
+
+## Requirements
+1. Julia
+2. PyPlot (Github: https://github.com/JuliaPy/PyPlot.jl)
+3. DataFrames (Github: https://github.com/JuliaData/DataFrames.jl)
+4. NearestNeighbors (Github: https://github.com/KristofferC/NearestNeighbors.jl)
+5. DataStructures (Github: https://github.com/JuliaCollections/DataStructures.jl)
+
 ## Steps
 1. Code under folder /home/yosun/Desktop/Path_Planning_Algorithm/HybridAStar_truck_trailer_julia
 
