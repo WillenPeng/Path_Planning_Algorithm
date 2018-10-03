@@ -13,15 +13,15 @@ using namespace std;
 
 int main(int argc, char **argv) {
     // set start and goal configuration
-    // double sx = 88.6;  // [m]
-    // double sy = 145.8;  // [m]
-    // double syaw0 = 90.0*D2R;
-    // double syaw1 = 90.0*D2R;
-
-    double sx = 153;  // [m]
-    double sy = 20;  // [m]
+    double sx = 88.6;  // [m]
+    double sy = 145.8;  // [m]
     double syaw0 = 90.0*D2R;
     double syaw1 = 90.0*D2R;
+
+    // double sx = 153;  // [m]
+    // double sy = 20;  // [m]
+    // double syaw0 = 90.0*D2R;
+    // double syaw1 = 90.0*D2R;
 
     // // go straight and turn left 
     // double gx = 120.0;  // [m]
@@ -30,21 +30,21 @@ int main(int argc, char **argv) {
     // double gyaw1 = 0.0*D2R;
 
     // // go back and park inside
-    // double gx = 100.0;  // [m]
+    // double gx = 106.0;  // [m]
     // double gy = 135.0;  // [m]
     // double gyaw0 = 0.0*D2R;
     // double gyaw1 = 0.0*D2R;
 
-    // // park back
-    // double gx = 100.0;  // [m]
-    // double gy = 133.0;  // [m]
-    // double gyaw0 = 180.0*D2R;
-    // double gyaw1 = 180.0*D2R;
+    // park back
+    double gx = 100.0;  // [m]
+    double gy = 133.0;  // [m]
+    double gyaw0 = 180.0*D2R;
+    double gyaw1 = 180.0*D2R;
 
-    double gx = 88.0;  // [m]
-    double gy = 82.0;  // [m]
-    double gyaw0 = 90.0*D2R;
-    double gyaw1 = 90.0*D2R;
+    // double gx = 88.0;  // [m]
+    // double gy = 82.0;  // [m]
+    // double gyaw0 = 90.0*D2R;
+    // double gyaw1 = 90.0*D2R;
 
     // double gx = 88.0;  // [m]
     // double gy = 195.0;  // [m]

@@ -12,30 +12,51 @@
 
 using namespace std;
 
-bool check_collision(vector<double>* x, vector<double>* y, vector<double>* yaw, Map* map);
+bool check_collision(vector<double>* x, vector<double>* y, vector<double>* yaw, Map* map, int truck_trailer);
 bool rect_check(double ix, double iy, double iyaw, vector<double>* ox, vector<double>* oy);
 vector<double> calc_trailer_yaw_from_xyyaw(vector<double>* yaw, double init_tyaw, vector<double>* steps);
 bool check_trailer_collision(Map* map, vector<double>* x, vector<double>* y, double yaw0, double yaw1);
 
 
-bool check_collision(vector<double>* x, vector<double>* y, vector<double>* yaw, Map* map) {
-    double ix, iy, iyaw, cx, cy;
+bool check_collision(vector<double>* x, vector<double>* y, vector<double>* yaw, Map* map, int truck_trailer) {
+    double ix, iy, iyaw, cx_truck, cy_truck, cx_trailer, cy_trailer;
     vector<double> oxnew, oynew;
     for (size_t i = 0; i < x->size(); i++) {
         ix = (*x)[i];
         iy = (*y)[i];
         iyaw = (*yaw)[i];
         // calculate rectangular center position based on rear-axis center
-        cx = ix + DF*cos(iyaw);
-        cy = iy + DF*sin(iyaw);
+        
         // cx = ix;
         // cy = iy;
         // cout << "cxy: " << cx << " " << cy << " " << DFR << endl;
-        const std::vector<int> radIndices = map->kdtree.radiusSearch({cx, cy}, DFR);
-        if (!radIndices.empty()) {
-            // cout << "radIndices: " << radIndices.size() << " " << (*map->ox)[radIndices[0]] << " " << (*map->oy)[radIndices[0]] << endl;
-            return false; // collision
+        if (truck_trailer) {
+            cx_trailer = ix + DT_F*cos(iyaw);
+            cy_trailer = iy + DT_F*sin(iyaw);
+            std::vector<int> radIndices = map->kdtree.radiusSearch({cx_trailer, cy_trailer}, DTR);
+            if (!radIndices.empty()) {
+                // cout << "radIndices: " << radIndices.size() << " " << (*map->ox)[radIndices[0]] << " " << (*map->oy)[radIndices[0]] << endl;
+                return false; // collision
+            }
+
+            cx_trailer = ix + DT_R*cos(iyaw);
+            cy_trailer = iy + DT_R*sin(iyaw);
+            radIndices = map->kdtree.radiusSearch({cx_trailer, cy_trailer}, DTR);
+            if (!radIndices.empty()) {
+                // cout << "radIndices: " << radIndices.size() << " " << (*map->ox)[radIndices[0]] << " " << (*map->oy)[radIndices[0]] << endl;
+                return false; // collision
+            }
         }
+        else {
+            cx_truck = ix + DF*cos(iyaw);
+            cy_truck = iy + DF*sin(iyaw);
+            std::vector<int> radIndices = map->kdtree.radiusSearch({cx_truck, cy_truck}, DFR);
+            if (!radIndices.empty()) {
+                // cout << "radIndices: " << radIndices.size() << " " << (*map->ox)[radIndices[0]] << " " << (*map->oy)[radIndices[0]] << endl;
+                return false; // collision
+            }
+        }
+        
         // if (radIndices.empty())
         //     continue; 
 
@@ -115,21 +136,21 @@ bool check_trailer_collision(Map* map, vector<double>* x, vector<double>* y, vec
 
     */
     // check collision for rear trailer
-    // if (!check_collision(x, y, yaw1, map)) {
-    //     return false;
-    // }
+    if (!check_collision(x, y, yaw1, map, 1)) {
+        return false;
+    }
 
     // check collision for front truck
-    if (!check_collision(x, y, yaw0, map)){
+    if (!check_collision(x, y, yaw0, map, 0)){
         return false;
     }
 
     // avoid large difference between yaw0 and yaw1 
-    // for (size_t i = 0; i < yaw0->size(); i++) {
-    //     if (cos((*yaw0)[i])*cos((*yaw1)[i]) + sin((*yaw0)[i])*sin((*yaw1)[i]) <= 0) {
-    //         return false;
-    //     }
-    // }
+    for (size_t i = 0; i < yaw0->size(); i++) {
+        if (cos((*yaw0)[i])*cos((*yaw1)[i]) + sin((*yaw0)[i])*sin((*yaw1)[i]) <= 0) {
+            return false;
+        }
+    }
     
     return true; // OK
 }

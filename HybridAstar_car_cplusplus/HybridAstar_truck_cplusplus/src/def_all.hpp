@@ -30,12 +30,12 @@ const double H_COST = 1;  // Heuristic cost
 // Vehicle parameter
 const double VR = 1.0;  // !!vehicle radius
 const double WB = 2.89;  //!![m] wheel base: rear to front steer
-const double LT = 8.0;  //[m] rear to trailer wheel
+const double LT = 5.0;  //[m] rear to trailer wheel
 const double W = 1.9;  //!![m] width of vehicle
 const double LF = 3.836;  //!![m] distance from rear to vehicle front end of vehicle
 const double LB = 0.946;  //!![m] distance from rear to vehicle back end of vehicle
 const double LTF = 1.0;  //[m] distance from rear to vehicle front end of trailer
-const double LTB = 9.0;  //[m] distance from rear to vehicle back end of trailer
+const double LTB = 6.0;  //[m] distance from rear to vehicle back end of trailer
 const double MAX_STEER = 500.0*D2R;  //!![rad] maximum steering angle 70 degree 
 const double TR = 0.5;  // Tire radius [m] for plot
 const double TW = 1.0;  // Tire width [m] for plot
@@ -55,9 +55,10 @@ const vector<double> VRXT = {LTF, LTF, -LTB, -LTB, LTF};
 const vector<double> VRYT = {-W/2.0, W/2.0, W/2.0, -W/2.0, -W/2.0};
 
 // bubble parameter
-const double DT = (LTF + LTB)/2.0 - LTB;
+const double DT_F = (LTF + LTB)/2.0 - LTB + (LTF + LTB)/4.0;
+const double DT_R = (LTF + LTB)/2.0 - LTB - (LTF + LTB)/4.0;
 // const double DTR = (LTF + LTB)/2.0 + 0.3;
-const double DTR = sqrt(pow((LTF + LTB)/2.0, 2) + pow(W/2, 2))+0.5;
+const double DTR = sqrt(pow((LTF + LTB)/4.0, 2) + pow(W/2, 2))+0.5;
 
 const vector<double> VRXF = {LF, LF, -LB, -LB, LF};
 const vector<double> VRYF = {-W/2.0, W/2.0, W/2.0, -W/2.0, -W/2.0};

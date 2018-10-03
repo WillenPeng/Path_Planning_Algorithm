@@ -110,14 +110,14 @@ def plot_trailer(x, y, yaw, yaw1, steer):
     tl_wheel[1, :] += y
 
     plt.plot(truckOutLine[0, :], truckOutLine[1, :], truckcolor)
-    # plt.plot(trailerOutLine[0, :], trailerOutLine[1, :], truckcolor)
+    plt.plot(trailerOutLine[0, :], trailerOutLine[1, :], truckcolor)
     plt.plot(fr_wheel[0, :], fr_wheel[1, :], truckcolor)
     plt.plot(rr_wheel[0, :], rr_wheel[1, :], truckcolor)
     plt.plot(fl_wheel[0, :], fl_wheel[1, :], truckcolor)
     plt.plot(rl_wheel[0, :], rl_wheel[1, :], truckcolor)
 
-    # plt.plot(tr_wheel[0, :], tr_wheel[1, :], truckcolor)
-    # plt.plot(tl_wheel[0, :], tl_wheel[1, :], truckcolor)
+    plt.plot(tr_wheel[0, :], tr_wheel[1, :], truckcolor)
+    plt.plot(tl_wheel[0, :], tl_wheel[1, :], truckcolor)
     plt.plot(x, y, "*")
 
 def main():

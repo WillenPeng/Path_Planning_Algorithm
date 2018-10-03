@@ -8,12 +8,12 @@ MOTION_RESOLUTION = 0.5 #[m] path interporate resolution
 
 # Vehicle parameter
 WB = 3.7  #[m] wheel base: rear to front steer
-LT = 8.0 #[m] rear to trailer wheel
+LT = 5.0 #[m] rear to trailer wheel
 W = 2.6 #[m] width of vehicle
 LF = 4.5 #[m] distance from rear to vehicle front end of vehicle
 LB = 1.0 #[m] distance from rear to vehicle back end of vehicle
 LTF = 1.0 #[m] distance from rear to vehicle front end of trailer
-LTB = 9.0 #[m] distance from rear to vehicle back end of trailer
+LTB = 6.0 #[m] distance from rear to vehicle back end of trailer
 MAX_STEER = 0.6 #[rad] maximum steering angle 
 TR = 0.5 # Tire radius [m] for plot
 TW = 1.0 # Tire width [m] for plot
