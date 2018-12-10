@@ -14,7 +14,7 @@ LF = 4.5 #[m] distance from rear to vehicle front end of vehicle
 LB = 1.0 #[m] distance from rear to vehicle back end of vehicle
 LTF = 1.0 #[m] distance from rear to vehicle front end of trailer
 LTB = 6.0 #[m] distance from rear to vehicle back end of trailer
-MAX_STEER = 0.6 #[rad] maximum steering angle 
+MAX_STEER = 70.0*D2R #[rad] maximum steering angle 
 TR = 0.5 # Tire radius [m] for plot
 TW = 1.0 # Tire width [m] for plot
 

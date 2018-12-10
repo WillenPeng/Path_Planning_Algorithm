@@ -107,9 +107,9 @@ bool check_trailer_collision(Map* map, vector<double>* x, vector<double>* y, vec
     collision check def for trailer
 
     // */
-    // if (!check_collision(x, y, yaw1, map)) {
-    //     return false;
-    // }
+    if (!check_collision(x, y, yaw1, map)) {
+        return false;
+    }
 
     // check front trailer
     if (!check_collision(x, y, yaw0, map)){
@@ -117,11 +117,11 @@ bool check_trailer_collision(Map* map, vector<double>* x, vector<double>* y, vec
     }
 
     // // avoid large difference between yaw0 and yaw1 
-    // for (size_t i = 0; i < yaw0->size(); i++) {
-    //     if (cos((*yaw0)[i])*cos((*yaw1)[i]) + sin((*yaw0)[i])*sin((*yaw1)[i]) <= 0) {
-    //         return false;
-    //     }
-    // }
+    for (size_t i = 0; i < yaw0->size(); i++) {
+        if (cos((*yaw0)[i])*cos((*yaw1)[i]) + sin((*yaw0)[i])*sin((*yaw1)[i]) <= 0) {
+            return false;
+        }
+    }
     
     return true; // OK
 }

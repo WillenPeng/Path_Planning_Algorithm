@@ -42,7 +42,7 @@ class Map {
         cout << "Start Build Own Map!" << endl;
         for (double i = -25; i <= 25; i++) {
             ox.emplace_back(i);
-            oy.emplace_back(47.0);
+            oy.emplace_back(30.0);
         }
         for (double i = -25; i <= -3; i++) {
             ox.emplace_back(i);

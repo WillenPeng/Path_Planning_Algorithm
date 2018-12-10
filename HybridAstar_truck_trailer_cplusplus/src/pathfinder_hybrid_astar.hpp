@@ -20,7 +20,7 @@
 using namespace std;
 
 class Path_Final;
-Path_Final calc_hybrid_astar_path(double sx, double sy, double syaw, double syaw1, double gx, double gy, double gyaw, double gyaw1, Map map);
+bool calc_hybrid_astar_path(double sx, double sy, double syaw, double syaw1, double gx, double gy, double gyaw, double gyaw1, Map* map);
 bool is_same_grid(Node* node1, Node* node2);
 Path_Final get_final_path(unordered_map<int, Node>* closed, Node* ngoal, Node* nstart, Map* map);
 bool verify_index(Node* node, Map* map, double inityaw1);
@@ -59,7 +59,7 @@ class Path_Final {
 };
 
 
-Path_Final calc_hybrid_astar_path(double sx, double sy, double syaw, double syaw1, double gx, double gy, double gyaw, double gyaw1, Map map) {
+bool calc_hybrid_astar_path(double sx, double sy, double syaw, double syaw1, double gx, double gy, double gyaw, double gyaw1, Map* map) {
     /*
     sx: start x position [m]
     sy: start y position [m]
@@ -74,23 +74,23 @@ Path_Final calc_hybrid_astar_path(double sx, double sy, double syaw, double syaw
     syaw = pi_2_pi(syaw);
     gyaw = pi_2_pi(gyaw);
 
-    map.calc_config();
+    map->calc_config();
     Node nstart(int(round(sx/XY_GRID_RESOLUTION)), int(round(sy/XY_GRID_RESOLUTION)), int(round(syaw/YAW_GRID_RESOLUTION)), true, {sx}, {sy}, {syaw}, {syaw1}, {true}, 0.0, 0.0, -1);
     Node ngoal(int(round(gx/XY_GRID_RESOLUTION)), int(round(gy/XY_GRID_RESOLUTION)), int(round(gyaw/YAW_GRID_RESOLUTION)), true, {gx}, {gy}, {gyaw}, {gyaw1}, {true}, 0.0, 0.0, -1);
 
     // To get a map with the h cost (distance to goal node) of each grid (without obstacle)
-    map.calc_holonomic_with_obstacle_heuristic(&ngoal);
+    map->calc_holonomic_with_obstacle_heuristic(&ngoal);
     // initilize the open set, closed set, priority queue
     unordered_map<int, Node> open_set;
     unordered_map<int, Node> closed_set;
     // fnode = None
 
-    open_set[map.calc_index(&nstart)] = nstart;
+    open_set[map->calc_index(&nstart)] = nstart;
 
     priority_queue<pair<double, int>,
                std::vector<pair<double, int> >,
                CompareByFirst_node> pq;
-    pq.push(make_pair(map.calc_cost(&nstart), map.calc_index(&nstart)));
+    pq.push(make_pair(map->calc_cost(&nstart), map->calc_index(&nstart)));
 
     // get motion primitives
     pair<vector< double >, vector< double >> u_and_d = calc_motion_inputs();
@@ -98,16 +98,20 @@ Path_Final calc_hybrid_astar_path(double sx, double sy, double syaw, double syaw
     size_t nmotion = u.size();
 
     int c_id;
-    Node current, fnode;
+    Node current;
+    // Node fnode;
     vector<Node> finalnode;
-	Path_Final path;
+	// Path_Final path;
 
     // main iteration
     time_t startime = time(NULL);
+    time_t currenttime;
     while (1) {
         if (open_set.empty()) {
             cout << "Error: Cannot find path, No open set" << endl;
-            exit(1);
+            // return path;
+            return 0;
+            // exit(1);
         }
         c_id = pq.top().second;
         pq.pop();
@@ -118,11 +122,11 @@ Path_Final calc_hybrid_astar_path(double sx, double sy, double syaw, double syaw
 
         // use Reed-Shepp model to find a path between current node and goal node without obstacles, which will not run every time for computational reasons.
 
-        finalnode = update_node_with_analystic_expantion(&current, &ngoal, &map, gyaw1);
+        finalnode = update_node_with_analystic_expantion(&current, &ngoal, map, gyaw1);
 
 
         if (!finalnode.empty()) { // found
-            fnode = finalnode[0];
+            // fnode = finalnode[0];
             break;
         } 
         
@@ -131,12 +135,12 @@ Path_Final calc_hybrid_astar_path(double sx, double sy, double syaw, double syaw
         int node_ind;
         for (size_t i = 0; i < nmotion; i++) {
             // For each node, it will have multiple possible points but with one x,y index
-            node = calc_next_node(&current, c_id, u[i], d[i], &map);
+            node = calc_next_node(&current, c_id, u[i], d[i], map);
 
-            if (!verify_index(&node, &map, inityaw1)) 
+            if (!verify_index(&node, map, inityaw1)) 
                 continue;
 
-            node_ind = map.calc_index(&node);
+            node_ind = map->calc_index(&node);
 
             // If it is already in the closed set, skip it
             if (closed_set.find(node_ind) != closed_set.end()) 
@@ -144,7 +148,7 @@ Path_Final calc_hybrid_astar_path(double sx, double sy, double syaw, double syaw
 
             if (open_set.find(node_ind) == open_set.end()) {
                 open_set[node_ind] = node;
-                pq.push(make_pair(map.calc_cost(&node), node_ind));
+                pq.push(make_pair(map->calc_cost(&node), node_ind));
             }
             else{
                 if (open_set[node_ind].cost > node.cost)
@@ -152,14 +156,21 @@ Path_Final calc_hybrid_astar_path(double sx, double sy, double syaw, double syaw
                     open_set[node_ind] = node;
             }
         }
+        currenttime = time(NULL);
+        if (currenttime - startime > 120) {
+            cout << "Error: Cannot find path, Time Over" << endl;
+            return 0;
+            // return path;
+        } 
     }
 
     time_t finaltime = time(NULL);
     cout << "Calculated Time: " << finaltime -startime << "[s]" << endl;
 
-    path = get_final_path(&closed_set, &fnode, &nstart, &map);
+    return 1;
+    // path = get_final_path(&closed_set, &fnode, &nstart, map);
 
-    return path;
+    // return path;
 
 }
 

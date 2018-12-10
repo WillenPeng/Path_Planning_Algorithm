@@ -36,7 +36,7 @@ const double LF = 3.836;  //!![m] distance from rear to vehicle front end of veh
 const double LB = 0.946;  //!![m] distance from rear to vehicle back end of vehicle
 const double LTF = 1.0;  //[m] distance from rear to vehicle front end of trailer
 const double LTB = 6.0;  //[m] distance from rear to vehicle back end of trailer
-const double MAX_STEER = 500.0*D2R;  //!![rad] maximum steering angle 70 degree 
+const double MAX_STEER = 70.0*D2R;  //!![rad] maximum steering angle 70 degree 
 const double TR = 0.5;  // Tire radius [m] for plot
 const double TW = 1.0;  // Tire width [m] for plot
 
